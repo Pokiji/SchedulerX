@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel ="stylesheet" href="{{ url_for('static', filename = 'style.css') }}"/>
+    <title>booking</title>
+</head>
+<body>
+    <div class="booking-container">
+        <h1 class="booking-title">Book a appointment</h1>
+        <h2 class="time-table">We work 8am-11am and 1pm-3pm, <br>Monday-Friday</h2>
+        
+        <h1 class="message"></h1>
+        {%if feedback == 'booked' %}
+            <h1 style="color: rgb(150, 5, 5);font-size: 32px;">Booked out</h1>
+        {% elif feedback == 'none' %}
+            <h1 style="color: rgb(150, 5, 5);font-size: 32px;">Empty form value</h1>
+        {% elif feedback =='out_of_time'%}
+            <h1 style="color: rgb(150, 5, 5);font-size: 32px;">not in the available time <table></table></h1>
+
+        {% endif %}
+
+        <h1 class="suggestion-title">Suggested time:</h1>
+        <ul class="suggestions">
+            {% for s in suggested %}
+                <li>
+                    <span>{{ s.date }} at {{ s.time }}</span>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <form  action="/submit" method="post">
+
+            <div>
+                <label for="name" class="form-label">Name</label>
+                <input name="name" type="text" class="form-control" id="name" >
+            </div>
+
+            <div> 
+                <label for="date" class="form-label">Date</label>
+                <input name="date" type="date"  class="form-control" id="date">
+            </div>
+
+            <div> 
+                <label for="time" class="form-label">Time</label>
+                <input name="time" type="time"  class="form-control" id="exampletime" step="60">
+            </div>
+
+            <button type="submit" class="button-book">Submit</button>
+
+        </form>
+    </div>
+  
+</body>
+</html>
